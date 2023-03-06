@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <title>Yummy</title>
+</head>
+<body>
+
+    <!-- main-1 starts here  ads -->
+
+    <section class="main-1">
+
+      <!-- Slider main container -->
+      
+        <div class="page-warp-1">
+
+
+            <div class="swiper">
+        
+                <!-- Additional required wrapper -->
+                
+                <div class="swiper-wrapper">
+        
+                    <!-- Slides -->
+
+                    {% for images in food_items %}
+                    {%if images.top_add == True%}
+                    
+                    <form  method="GET" action="show_product" class="swiper-slide">
+                        <input type="text" name="item" value="{{images.link}}" style="display: none;">
+                        <button class="top_btn" type="submit"><img class="ad-image" src="{{images.img.url}}" ></button>
+                    
+                    </form>
+
+                    {% endif %}
+                    {% endfor %}
+        
+                </div>
+        
+                <!-- If we need pagination -->
+
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+            
+                <div class="swiper-button-prev"></div>
+            
+                <div class="swiper-button-next"></div>
+        
+            </div>
+    
+        </div>
+    
+    </section>
+
+    <!-- main-1 ends here  ads-->
+
+
+    <!-- main-2 starts here special -->
+
+    <section class="main-2">
+
+        <div class="page-warp-1">
+
+            <div class="head-con">
+
+
+            <img class="head-image-1" src="{% static '/images/special-2.png'%}" >
+
+            <h4 class="special">Our Specials</h4>
+
+            <img class="head-image-2" src="{% static '/images/special-3.png'%}" >
+
+
+            </div>
+
+            <section class="main-2-section">
+
+            <div onclick="left_btn();"><img class="scroll-image" src="{% static '/images/left.png'%}" alt=""></div>
+            
+
+            <div class="slider-con" id="scroll">
+
+                {% for data_in_special in  food_items %}
+                {% if data_in_special.our_special == True %}
+                <div class="slider-card">
+                    <div class="image-con">
+                        <div class="image-view">
+                            <img class="image" src="{{data_in_special.img.url}}" alt="">
+                        </div>
+                    </div>
+                    <div class="head-con-card">
+                        <div class="head-view">
+                            <span class="head-name">{{data_in_special.item_name}}</span>
+                            <span class="head-sub-name">{{data_in_special.item_type}}</span>
+                        </div>
+                    </div>
+                    <form method="GET" action="show_product">
+                        <input type="text" name="item" value="{{data_in_special.link}}" style="display: none;">
+                        <button class="button-info" type="submit">Info</button>
+                    </form>
+    
+                </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <div onclick="right_btn();"><img class="scroll-image" src="{% static 'images/right.png'%}" alt=""></div>
+            </section>
+
+          <!-- slider cards end here -->
+
+        </div>    
+    
+    </section>
+
+    <!-- main-2 ends here special -->
+
+    <!-- main-3 starts here  categories-->
+
+    <section class="main-3">
+
+        <div class="page-warp-1">
+
+            <div class="head-con">
+    
+    
+              <img class="head-image-1" src="{% static '/images/cat.png'%}" >
+    
+              <h4 class="special">Categories</h4>
+    
+              <img class="head-image-2" src="{% static '/images/cat-1.png'%}" >
+                
+    
+            </div>
+
+            <section class="cat-section">
+    
+                <div class="cat-con">
+                    {% for cat_data in cat  %}
+
+                    <form method="GET" action="show_product" class="cat-card">
+
+                        <input type="text" name="item" value="{{cat_data.link}}" style="display: none;">
+
+                        <button class="cat-btn" type="submit"><img class="cat-image-view" src="{{cat_data.img.url}}"></button>
+
+                        <span class="cat-name">{{cat_data.cat_name}}</span>
+                    </form>
+                    {% endfor %}
+        
+                </div>
+        
+            </section>
+
+    </section>
+
+    <!-- main-3 ends here categories  -->
+
+
+    <!-- main-4 start here items -->
+
+    <section class="main-4">
+
+        <div class="page-warp-1">
+
+            <div class="main-card-con">
+
+                {% for list_items in  food_items %}
+
+                    <div class="main-card" >
+                        
+                            <span class="head-item-con">
+                                <span class="head-item-view" >{{list_items.item_name}}</span>
+                                {% comment %} <a href="{% url 'like' %}?item_name={{list_items.link}}and{{user.username}}">
+                                    {% for like  in  like %}
+                                        {% if like.item_name == list_items.item_name %}
+                                        <button  class="btn_like">
+                                            <img src="{% static '/images/like.png' %}" class="dislike_img" alt="">
+                                        </button>
+                                        {% else %}
+                                        <button class="btn_like">
+                                            <img src="{% static '/images/unlike.png' %}" class="dislike_img" alt="">
+                                        </button>
+                                        {% endif %}
+                                    {% endfor %}
+                                </a> {% endcomment %}
+                            </span> 
+                        <form action="show_product" method="GET">
+                            <button type="submit" class="btn_like">
+                            <input type="text" style="display: none;" name="item" value="{{list_items.link}}">
+
+                            <div class="item-content">
+
+                                {% if list_items.offer is True %}
+                                <div class="discount-con">
+                                    <img class="discount-image" src="{% static '/images/discount_50.png'%}" alt="">
+                                </div>
+                                {% else %}
+                                <div class="discount-con">
+                                    <img class="discount-image" src="{% static '/images/discount_10.png'%}" alt="">
+                                </div>
+                                {% endif %}
+                
+                                <div class="image-item-con">
+                                    <img class="image-item-view" src="{{list_items.img.url}}" alt="">
+                                </div>
+                            </div></button>
+                        </form>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- main-4 ends here items -->
+
+
+    {% block extrascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    
+    {% endblock %}
+    
+    <script src="{% static 'script/index.js'%}"></script>
+
+
+
+</body>
+
+</html>
+
+{% endblock  %}

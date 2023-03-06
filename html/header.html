@@ -1,0 +1,96 @@
+{% load static %}
+
+<link rel="shortcut icon" href="{% static '/images/title-logo.png' %}" type="image/x-icon">
+<link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+
+    
+    
+    <!-- nav starts here -->
+
+
+    <section class="nav-fixed">
+        
+        <div class="nav-color">
+        
+            <div class="page-warp">
+                
+                <div class="nav-con">
+                
+                    <div class="logo-con">
+                        <img class="logo-image" src="{% static '/images/dish-cover.png' %}" alt="">
+                        <a class="logo" href="/">YUMMY</a>
+            
+                    </div>
+
+                    <form action= "search_product" class="search-con" method="GET">
+
+                             <input class="search-data" name="query" type="text" placeholder=" ">
+                            <div class="wrapper" >
+                                <ul class="dynamic-txts">
+                                    <li class="list"><span>Biryani</span></li>
+                                    <li class="list"><span>Egg Rice</span></li>
+                                    <li class="list"><span>Chicken Rice</span></li>
+                                    <li class="list"><span>Ice Cream</span></li>
+                                    <li class="list"><span>Chicken Lolly Pop</span></li>
+                                    <li class="list"><span>Mutton Biryani</span></li>
+                                    <li class="list"><span>Pappu</span></li>
+                                </ul>
+                            </div>
+                        <button type="submit" class="search-button">Search</button>
+                    </form>
+
+                
+                    <div class="nav-links">
+                
+                        <ul>
+                            
+                            <li class="home-btn"><a class="links" href="{% url 'index' %}">Home</a></li>
+                
+                            <li class="home-btn"><a class="links" href="{% url 'our_service'%}">Our Services</a></li>
+                
+                            <li class="home-btn"><a class="links" href="{% url 'about_us' %}">About Us</a></li>
+
+                            {%if user.is_authenticated%}
+
+                            <li class="home-btn"><a class="links">Profile</a>
+
+                                <ul class="dropdown">
+
+                                    <li class="home-btn"><a href="{% url 'profile' %}">My Account</a></li>
+                                    <li class="home-btn"><a href="{% url 'shipping_address' %}"> Shipping Address</a></li>
+                                    <li class="home-btn"><a href="{% url 'orders' %}">Orders</a></li>
+                                    
+                                </ul>
+                    
+                            </li>
+                            <li class="home-btn" ><a class="links" href="{% url 'cart' %}"> <span class="cart-count">{{cart_count}}</span> Cart</a></li>                                   
+                            <li class="home-btn"><a class="links" href="{% url 'logout' %}">Logout</a></li>
+
+
+
+                            {% else %}
+
+                                            
+                            <li class="home-btn"><a class="links" href="{% url 'login' %}">Login</a></li>
+                
+                            <li class="home-btn"><a class="links" href="{% url 'signup' %}">Sign Up</a></li>
+                
+
+                            {% endif %}
+                        
+                        </ul>
+                
+                    </div>
+                
+                </div>
+            
+            </div>
+      
+        </div>
+    </section>
+
+    <!-- nav ends here -->
+
+
+</body>
+</html>

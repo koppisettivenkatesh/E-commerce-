@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static '/css/cart.css' %}">
+    <link rel="stylesheet" href="{% static '/css/buy_now.css' %}">
+    <title>Cart</title>
+</head>
+<body>
+
+    <div class="page-warp-1">
+
+        <section>
+
+            <div class="cart-con">
+
+                <div class="cart-left">
+
+                    <div class="cart-title">
+                        <span class="title-view">Cart</span>
+                        {% for message in messages %}
+                        {% if message.tags == 'success' %}
+    
+                        <h4 class="success"> {{message}}</h4>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                    {% for cart_items in cart  %}
+                    {%if cart_items.user ==  user.username %}
+                            <!-- cart item card -->
+
+                    <div class="cart-item">
+                        <div class="cart-img">
+                            <img class="img-view" src="{{cart_items.img.url}}" alt="">
+                        </div>
+                        <form action="{% url 'update_cart' %}" method="POST" class="cart-des">
+                            {% csrf_token %}
+                            <span class="item-name">{{cart_items.item_name}}</span>
+                            <span class="item-price">Rs {{cart_items.item_price}}</span>
+                            <input type="none" style="display:none;" name="item_name" value="{{cart_items.item_name}}">
+                            <span class="item-quantity">Quantity<input class="quantity_view" name="quantity" value="{{cart_items.quantity}}" >
+                            <select name="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            </span>
+                            <button type="submit" class="update-btn">Update Cart</button>
+                        </form>
+                        <form action="{% url 'remove_from_cart' %}" method='POST'>
+                            {% csrf_token %}
+                            <input type="none" style="display:none;" name="item_name" value="{{cart_items.item_name}}">
+                            <button type="submit" class="remove-btn">Remove </button>
+                        </form>
+                    </div>
+                                <!-- cart item card -->
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+
+                <div class="cart-right">
+                    <div class="cart-right-con">
+                        <span class="total-view">Total Cart</span>
+                    </div>
+                    <div class="cart-right-con-1">
+                        <span class="items">List of items</span>
+                    </div>
+                    <div class="item-con">
+
+                        <div class="sub-item-1">
+
+                            {% for items in cart %}
+                            {%if items.user ==  user.username %}
+
+
+                            <div class="total-items">
+
+                                <span class="total-items-name" >{{items.item_name}}</span>
+                                <span class="total-items-view">{{items.item_price}}</span>
+                                <span class="total-items-view">X</span>
+                                <span class="total-items-view">{{items.quantity}}</span>
+                                <span class="total-items-view"> = </span>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="sub-item-2">
+
+                            {% for total in total %}
+
+                            <div class="price">
+
+                                <span class="total-items-view">Rs {{total.mul}}</span>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                        
+                    </div>
+                    <div class="total">
+                        <span class="total-price"> Rs {{add}}</span>
+                    </div>
+                    <div class="set-con">
+                        <div action="{% url 'set_default'%}" method='POST' enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <span class="address-label">Select Delivery Address</span>
+                            {% for shipping in  shipping %}
+                            {% if shipping.email == user.username %}
+
+                                  <div class="buy-address-con">
+                                      <div class="check-con">
+                                      <input type="hide" name="username" value="{{user.username}}" style="display: none;" id="">
+                                      <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_1}}" checked onchange="checkChange()">
+          
+                                      </div>
+                                      <div class="label-con">
+                                      <label for="address_1" class="check_label">
+                                      <label class="default">Default Address</label>
+                                       {{shipping.default_shipping_address}}
+                                      </label>
+                                      </div>
+                                  </div>
+          
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="user-payment-con">
+                            <span class="payment-label">Select Payment Mode</span>
+              
+                            <div class="payment-con">
+                              <div class="payment-check-con">
+                                    <input type="checkbox" name="address_1" id="address_1" checked >
+                                </div>
+                              <div class="payment-label-con">
+                                    <label for="address_1" class="check_label"> UPI Payment </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-btn">
+                            <a class="check-out" href="{% url 'cart_to_buy' %}">Check Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+{% endblock %}

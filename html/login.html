@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
+    <link rel="shortcut icon" href="{% static '/images/title-logo.png' %}" type="image/x-icon">
+
+    <title>Yummy Login</title>
+
+</head>
+<body>
+
+
+    <div class="page-warp-1">
+
+    <section class="login-section">
+
+        <div class="left-login">
+
+            <div class="left-login-logo-con">
+
+                <span class="left-login-logo-view" > Yummy </span>
+
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+
+                <h4 class="error"> {{message}}</h4>
+
+                {% else %}
+
+                <h4 class="success"> {{message}}</h4>
+
+                {% endif %}
+                {% endfor %}
+
+            </div>
+
+            <div class="left-login-head-con">
+
+                <span class="left-login-head-view">Welcome</span>
+            </div>
+
+            <div class="form-data-con">
+                
+                <form  action="yummy_login" method="POST">
+
+                        {% csrf_token %}
+
+                        <input type="text" class="input-data-email" name="email" placeholder=" " required>
+
+                        <label class="email">Email</label>
+                        
+                        <input type="password" class="input-data-passwd" name="password" placeholder=" " required>
+                        
+                        <label class="passwd">Password</label>
+                        
+                        <button class="login">Login</button>
+                        
+                        <div class="notice-con">
+
+                            <span class="notice">Don't Have an Account !</span>
+                            
+                            <a  class="notice-1" href="/accounts/signup">SignUp</a>
+                        </div>
+                      
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="right-login">
+            <img class="right-login-view" src="{% static '/images/account-image.jpeg' %}" >
+        </div>
+
+
+
+    </section>
+    {% endblock  %}
+
+</body>
+</html>

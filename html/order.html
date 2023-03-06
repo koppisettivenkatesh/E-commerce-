@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/order.css' %}">
+    <title>Order</title>
+</head>
+<body>
+    <div class="page-warp-1">
+
+        <div class="order-con">
+            <div class="order-title">
+                <span>Orders</span>
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+
+                <h4 class="error"> {{message}}</h4>
+
+                {% else %}
+
+                <h4 class="success"> {{message}}</h4>
+
+                {% endif %}
+            {% endfor %}
+            </div>
+            <!-- item-card -->
+            {% for get_order in get_order %}
+            {% if get_order.user == user.username %}
+            <div class="item">
+                <div class="details">
+                    <div class="order-id">
+                        <span> Order Id : {{get_order.order_id}}</span>
+                    </div>   
+                    <div class="payment-id">
+                        <span> Payment Id : {{get_order.payment_id}}</span>
+                    </div>
+                    <div class="payment-mode">
+                        <span> Payment Mode : {{get_order.payment_mode}}</span>
+                    </div>
+                    <div class="status">
+                        <span>Status  :  {{get_order.status}} </span>
+                    </div>
+                    <div class="total-price">
+                        <span>Total Price :  Rs {{get_order.total_price}} </span>
+                    </div>
+                    <div class="cancel-order-con">
+                        <form action="{% url 'cancel_order' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" style="display: none;" name="item_name" value="{{get_order.item_name }}" >
+                            <input type="text" style="display: none;" name="order_id" value="{{get_order.order_id}}">
+                            <button class="clc_btn" type="submit">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="shipping-con">
+                    <span class="shipping_view"> Shipping Address :  {{get_order.shipping_address}}</span>
+                </div>
+                <div class="tracking">
+                    <span>Ordered</span>
+                    <span>On the Way</span>
+                    <span>Delivered</span>
+                </div>
+                <div class="tracking-bar">
+                    <img class="check" src="{% static '/images/check-mark.png' %}" alt="">
+                    <div class="track-shipped"></div>
+                    <img class="check" src="{% static '/images/check-mark.png' %}" alt="">
+                    <div class="track-delivered"></div>
+                    <img class="check" src="{% static '/images/check-mark.png' %}" alt="">
+                </div>
+
+                <div class="product-con">
+
+                    <div class="row-con">
+
+                        <div class="item-con">
+                            <div class="cart-img">
+                                <img  class="img-view" src="{{get_order.img.url}}" alt="">
+                            </div>
+                            <div class="item-details">
+                                <span>{{get_order.item_name }}</span>
+                                <span>Rs {{get_order.item_price}}</span>
+                                <span> Quantity  {{get_order.quantity}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+{% endblock  %}

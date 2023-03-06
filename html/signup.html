@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static '/css/signup.css' %}">
+    <title>Yummy Signup</title>
+</head>
+
+<body>
+
+
+    <div class="page-warp-1">
+
+        <section class="signup-section">
+
+            <div class="left-signup">
+
+                <div class="left-signup-logo-con">
+
+                    <span class="left-signup-logo-view" > Yummy </span>
+                    
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+
+                            <h4 class="error"> {{message}}</h4>
+
+                            {% else %}
+
+                            <h4 class="success"> {{message}}</h4>
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                <div class="left-signup-head-con">
+
+                    <span class="left-signup-head-view">Create Account</span>
+                </div>
+
+                <div class="form-data-con">
+
+                    <form  action="yummy_signup" method="POST">
+
+                        {% csrf_token %}
+
+
+                            <input type="text"  class="input-data"  name="email" placeholder=" " required>
+
+                            <label  class="place">Email</label>
+                            
+                            <input type="password"  class="input-data"  name="password" placeholder=" " required>
+                            
+                            <label  class="place">Password</label>
+
+                            <input type="password"  class="input-data"  name="confirm_password" placeholder=" " required>
+                            
+                            <label  class="place">Confirm Password</label>
+
+                            <button type="submit" class="signup">Signup</button>
+                            
+                            <div class="notice-con">
+                                
+                                <span   class="notice">Already Have an Account !</span>
+                                
+                                <a  class="notice-1" href="{% url 'login' %}">Login</a>
+
+
+                            </div>
+                        
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="right-signup">
+
+                <img class="account-image" src="{% static '/images/account-image.jpeg' %}" alt="">
+
+            </div>
+
+        </section>
+
+    </div>
+
+    {% endblock  %}
+
+</body>
+</html>

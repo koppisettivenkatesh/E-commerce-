@@ -1,0 +1,149 @@
+body {
+  font-family: poppins;
+}
+.new_address,
+.set_btn {
+  min-width: 10%;
+  padding: 0.5rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: large;
+  font-family: poppins;
+}
+
+.del_btn{
+    min-width: 10%;
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+    font-family: poppins;
+    background-color: rgb(218, 47, 47);
+    color: white;
+}
+
+
+.new {
+  max-width: 100%;
+  min-height: 200px;
+  font-family: poppins;
+  padding: 0.5rem;
+  font-size: larger;
+  resize: none;
+}
+.form-con {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.error {
+  margin-left: 5%;
+  font-family: poppins;
+  padding: 0.5rem 0.5rem;
+  animation: error;
+  animation-duration: 5s;
+  transition: ease-in 1s;
+  width: 70%;
+  color: rgb(82, 76, 76);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes error {
+  to {
+    color: white;
+    box-shadow: inset 450px 0 0 0 rgb(223, 65, 65);
+  }
+}
+.success {
+  margin-left: 5%;
+  font-family: poppins;
+  padding: 0.5rem 0.5rem;
+  animation: success;
+  animation-duration: 5s;
+  transition: ease-in 1s;
+  width: 70%;
+  color: rgb(82, 76, 76);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes success {
+  to {
+    color: white;
+    box-shadow: inset 450px 0 0 0 rgb(83, 201, 99);
+  }
+}
+.default {
+  padding: 0.2rem;
+  background-color: coral;
+  color: white;
+  border-radius: 10px;
+}
+
+
+
+.pop_up_delete , .pop_up_edit {
+  width: 60%;
+  height: 700px;
+  background-color:rgb(231, 229, 229);
+  position: absolute;
+  top: 15%;
+  transform: scale(0);
+  transition: ease-out 0.3s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.display{
+  transform: scale(1);
+
+}
+
+.close_del_btn{
+  cursor: pointer;
+  background-color: white;
+  padding: .5rem;
+  border-radius: 5px;
+  margin-left: 10%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.pop_up_con{
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.img_del{
+  height: 2rem;
+}
+
+.edit_text{
+  width: 100%;
+  height: 150px;
+  font-family: poppins;
+  padding: 0.5rem;
+  font-size: larger;
+  resize: none;
+}
+
+.edit_text{
+  margin-top: .1rem;
+}
+
+.close_edit_btn{
+  cursor: pointer;
+  background-color: white;
+  padding: .5rem;
+  border-radius: 5px;
+  margin-left: 10%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  top: 91%;
+  position: absolute;
+}

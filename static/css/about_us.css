@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: poppins;
+
+}
+.page-warp-1 {
+    max-width: 1980px;
+    margin: 0 auto;
+  }
+
+.about-con{
+    width: 80%;
+    height: 500px;
+    margin: 0 10%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    font-weight: 500;
+}
+
+.title-con{
+    margin-top: 2%;
+}

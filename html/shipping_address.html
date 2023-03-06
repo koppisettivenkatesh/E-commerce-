@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/buy_now.css' %}">
+    <link rel="stylesheet" href="{% static '/css/cart.css' %}">
+    <link rel="stylesheet" href="{% static '/css/shipping_address.css' %}">
+    <title>Shipping Address</title>
+</head>
+<body>
+    <div class="page-warp-1">
+        <section>
+        <div class="cart-con">
+
+            <div class="user-address-con">
+
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+
+                <h4 class="error"> {{message}}</h4>
+
+                {% else %}
+
+                <h4 class="success"> {{message}}</h4>
+
+                {% endif %}
+                {% endfor %}
+                <div class="lol">
+                    <form action="{% url 'shipping_address' %}" method="POST"  class="form-con" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" class="new_address"> + Add New Address</button>
+                        <input type="hide" name="username" value="{{user.username}}" style="display: none;" id="">
+                        <textarea class="new"  name="address"></textarea>
+                    </form>
+                </div>
+                <div class="set_con">
+                    <form action="{% url 'set_default' %}" method='POST'>
+                        {% csrf_token %}
+                        <button class="new_address"> Set as Default</button>
+                        <label class="new_address" onclick="delete_address();"><img class="img_del" src="{% static '/images/delete.png' %}" alt=""></label>
+                        {% for shipping in shipping %}
+                        {% if shipping.email == user.username %}
+                        {% if shipping.shipping_address_1 != "none"  %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                                <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                                <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_1}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_1 %}
+                                    <label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_1}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if shipping.shipping_address_2 != "none"  %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                              <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                              <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_2}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                              <label for="address_1" class="check_label">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_2 %}<label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_2}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if shipping.shipping_address_3 != "none" %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                              <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                              <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_3}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                              <label for="address_1" class="check_label">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_3 %}<label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_3}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %} 
+                        {% endfor %}
+                    </form>
+                </div>
+                <div class="pop_up_delete" id="pop_up_del">
+                    <form action="{% url 'delete_address' %}" method='POST' class="pop_up_con">
+                        {% csrf_token %}
+                        <button type="submit" class="new_address">Delete Address</button>
+                        {% for shipping in shipping %}
+                        {% if shipping.email == user.username %}
+                        {% if shipping.shipping_address_1 != "none"  %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                                <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                                <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_1}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_1 %}
+                                    <label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_1}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if shipping.shipping_address_2 != "none"  %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                              <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                              <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_2}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                              <label for="address_1" class="check_label">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_2 %}<label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_2}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if shipping.shipping_address_3 != "none" %}
+                        <div class="buy-address-con">
+                            <div class="check-con">
+                              <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                              <input type="checkbox" name="set" id="address_1" class="checkbox" value="{{shipping.shipping_address_3}}" onchange="checkChange()">
+                            </div>
+                            <div class="label-con">
+                              <label for="address_1" class="check_label">
+                                <label for="address_1" class="check_label">
+                                    {% if shipping.default_shipping_address == shipping.shipping_address_3 %}<label class="default">Default Address</label>
+                                    {% endif %}
+                                    {{shipping.shipping_address_3}}
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %} 
+                        {% endfor %}
+                    </form>
+                    <span onclick="close_del_btn();" class="close_del_btn">Close</span>
+                </div>
+                {% comment %} <div class="pop_up_edit" id="pop_up_edit">
+                    <form action="{% url 'edit_address' %}" method='POST' class="pop_up_con">
+                        {% csrf_token %}
+                        <button type="submit" class="new_address">Update Address</button>
+                        {% for shipping in shipping %}
+                        {% if shipping.email == user.username %}
+                        <div class="edit_form">
+                            {% if shipping.shipping_address_1 != "none"  %}
+                            <div class="edit_text">
+                                <input type="hide" name="username" value="{{user.username}}" style="display: none;">
+                                <textarea class="edit_text"  name="address_1">{{shipping.shipping_address_1}}</textarea>
+                            </div>
+                            {% endif %}
+                            {% if shipping.shipping_address_2 != "none"  %}
+                            <div class="edit_text">
+                                <textarea class="edit_text" name="address_2">{{shipping.shipping_address_2}}</textarea>
+                            </div>
+                            {% endif %}
+                            {% if shipping.shipping_address_3 != "none" %}
+                            <div class="edit_text">
+                                <textarea class="edit_text"  name="address_3">{{shipping.shipping_address_3}}</textarea>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %} 
+                        {% endfor %}
+                    </form>
+                    <span onclick="close_edit_btn();" class="close_edit_btn">Close</span>
+                </div> {% endcomment %}
+            </div>
+        </div>
+        </section>
+    </div>
+    <script>
+        let checkbox = document.querySelectorAll('.checkbox')
+        let b = false;
+        function checkChange(){
+        b = !b
+        if(b){
+            for(let i = 0 ; i< checkbox.length; i++){
+                if(checkbox[i].checked === false){
+                    checkbox[i].disabled = 'true';
+                }  
+            }
+        }else{
+            for(let i = 0 ; i< checkbox.length; i++){
+                checkbox[i].removeAttribute('disabled');
+            }
+            
+         }
+      }
+
+      let pop_del = document.getElementById('pop_up_del');
+      function delete_address(){
+        pop_del.classList.add("display");
+      }
+      function close_del_btn(){
+        pop_del.classList.remove("display");
+      }
+
+      let pop_edit = document.getElementById('pop_up_edit');
+      function edit_address(){
+        pop_edit.classList.add("display");
+      }
+      function close_edit_btn(){
+        pop_edit.classList.remove("display");
+      }
+    </script>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+*{
+    font-family: poppins;
+}
+
+.page-warp-1 {
+    max-width: 1980px;
+    margin: 0 auto;
+  }
+  
+
+.order-con{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-top: 10rem;
+}
+
+.order-title{
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+
+.success{
+    margin-left: 5%;
+    font-family: poppins;
+    padding: .5rem .5rem ;
+    animation: success;
+    animation-duration: 5s;
+    transition: ease-in 1s;
+    width: 70%;
+    color:  rgb(82, 76, 76);
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+  }
+
+  @keyframes success {
+    to{
+        color: white;
+        box-shadow: inset 450px 0 0 0  rgb(83, 201, 99);
+    }
+  
+  }
+
+.order-title span{
+    font-weight: bold;
+}
+
+.item{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    height: auto;
+    padding: 1rem;
+    border-radius: 20px;
+    margin-top: 3%;
+}
+
+
+.details{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    padding: .5rem 0;
+    margin-left: 2%;
+}
+
+.item-con{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+    margin-left: 2%;
+
+}
+.cart-img{
+    width: 50%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+.img-view{
+    width: 100%;
+    height: 200px;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+.item-details{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    margin-left: 3%;
+}
+
+.tracking{
+    display: flex;
+    gap: 38rem;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: auto;
+}
+
+.check{
+    height: 25px;
+}
+
+.tracking-bar{
+    display: flex;
+    flex-direction: row;
+    margin-left: 3.5%;
+    margin-top: .5%;
+    align-items: center;
+}
+
+.track-shipped{
+    width: 44%;
+    height: 1vh;
+    background-color: black;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.track-delivered{
+    width: 45%;
+    height: 1vh;
+    background-color: black;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.product-con{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+}
+
+.row-con{
+    width: 25%;    
+    margin-left: 2%;
+
+}
+
+.shipping_view{
+    margin-left: 2%;
+    display: flex;
+}
+
+.clc_btn{
+    border: none;
+    padding: .5rem;
+    background: rgb(189, 37, 37);
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}

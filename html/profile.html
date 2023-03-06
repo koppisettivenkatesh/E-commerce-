@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static '/css/account.css' %}">
+    <title>My Account</title>
+</head>
+<body>
+    <div class="page-warp-1">
+        <section>
+
+            <div class="account-con">
+
+                <span class="my-account-title">My Account</span>
+
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+
+                <h4 class="error"> {{message}}</h4>
+
+                {% else %}
+
+                <h4 class="success"> {{message}}</h4>
+
+                {% endif %}
+                {% endfor %}
+
+                {% for info  in  profile_info %}
+
+                {% if info.email == user.username %}
+
+
+                    <form  action="profile_update" method="POST" class="my-account">
+
+                        {% csrf_token %}
+
+                        <div class="my-account-info">
+
+                            <span class="info">First Name</span>
+                            
+                            <input class="view" type="text"  name="first_name" value="{{info.first_name}}" >
+
+
+                            <span class="info">Last Name</span>
+
+                            <input class="view"type="text" name="last_name"  value="{{info.last_name}}">
+
+
+                            <span class="info">Email</span>
+
+                            <input id="disable" class="view"  name="email" value="{{user.username}}">
+
+
+                            <span class="info">Phone Number</span>
+
+                            <input class="view"type="text" name="phone" value="{{info.phone}}">
+
+                        </div>
+
+
+
+                        <div class="right">
+
+                            <span class="info">Address</span>
+                            <textarea cols="65" rows="10" name="address" >{{info.address}}</textarea>
+                            <button class="btn-submit" type="submit">Update</button>
+
+                        </div>
+
+                    </form>
+
+                {% endif %} 
+
+                {% endfor %}
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
+
+{% endblock  %}

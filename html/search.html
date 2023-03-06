@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+    <title>{{get}}</title>
+</head>
+<body>
+
+    <section class="main-4">
+
+        <div class="page-warp-1">
+    
+    
+            <div class="main-card-con">
+    
+                {% for list_items in data %}
+                {% if get == list_items.item_name%}
+    
+                <form action="show_product" class="main-card" method="GET"  target="_blank">
+
+                    <input type="text" style="display: none;" name="item" value="{{list_items.link}}">
+
+                    <button class="item-btn" type="submit" ><div class="on-hover">
+
+                        <div class="head-item-con">
+                            <span class="head-item-view" >{{list_items.item_name}}</span>
+                        </div>
+
+                        <div class="item-content">
+
+                            {% if list_items.offer is True %}
+                            <div class="discount-con">
+                                <img class="discount-image" src="{% static '/images/discount_50.png'%}" alt="">
+                            </div>
+                            {% else %}
+                            <div class="discount-con">
+                                <img class="discount-image" src="{% static '/images/discount_10.png'%}" alt="">
+                            </div>
+                            {% endif %}
+            
+                            <div class="image-item-con">
+                                <img class="image-item-view" src="{{list_items.img.url}}" alt="">
+                            </div>
+                        </div>
+
+                    </div></button>
+
+                </form>
+                {% endif %}
+                {% endfor %}
+    
+            </div>
+    
+        </div>
+    
+    </section>
+    
+</body>
+</html>
+{% endblock  %}
